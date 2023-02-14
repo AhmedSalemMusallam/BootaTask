@@ -7,5 +7,7 @@ target 'BostaTask' do
 
   # Pods for BostaTask
   pod 'Alamofire'
-
+  pod 'SDWebImage'
+  pod 'RxSwift'
+  pod 'RxCocoa'
 end

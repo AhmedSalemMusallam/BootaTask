@@ -6,6 +6,9 @@
 //
 
 import Foundation
+
+
+
 protocol UsersAPIProtocol {
     func getUsers(completion: @escaping (Result<UserModel?, NSError>) -> Void)
 }
@@ -13,7 +16,6 @@ protocol UsersAPIProtocol {
 
 class UsersAPI: BaseAPI<UsersNetworking>, UsersAPIProtocol {
     
-    //MARK:- Requests
     
     func getUsers(completion: @escaping (Result<UserModel?, NSError>) -> Void) {
     

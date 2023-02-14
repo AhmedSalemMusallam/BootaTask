@@ -9,13 +9,18 @@
 import Foundation
 import Alamofire
 
-class BaseAPI<T: TargetType> {
 
+class BaseAPI<T: TargetType> {
+    
+    
     func fetchData<M: Decodable>(target: T, responseClass: M.Type, completion:@escaping (Result<M?, NSError>) -> Void) {
+        
         let method = Alamofire.HTTPMethod(rawValue: target.method.rawValue)
         let headers = Alamofire.HTTPHeaders(target.headers ?? [:])
         let params = buildParams(task: target.task)
+       
         guard let url = URL(string: target.baseURL + target.path) else { return }
+        print("\(url) 00000000")
         AF.request(url, method: method, parameters: params.0, encoding: params.1, headers: headers).responseDecodable(of: M.self) { (response) in
             
             
@@ -33,29 +38,7 @@ class BaseAPI<T: TargetType> {
                     completion(.failure(error))
                     return
                 }
-                
-//                if (!JSONSerialization.isValidJSONObject(jsonResponse)) {
-//                    print(jsonResponse)
-//                    print(jsonResponse)
-//                        print("is not a valid json object")
-//                        return
-//                    }
-//                
-//                guard let theJSONData = try? JSONSerialization.data(withJSONObject: jsonResponse, options: [])   else {
-//                    // ADD Custom Error
-//                    let error = NSError(domain: target.baseURL, code: 0, userInfo: [NSLocalizedDescriptionKey: ErrorMessage.genericError])
-//                    completion(.failure(error))
-//
-//                    return
-//                }
-//                
-//                guard let responseObj = try? JSONDecoder().decode(M.self, from: theJSONData) else {
-//                    // ADD Custom Error
-//                    
-//                    let error = NSError(domain: target.baseURL, code: 0, userInfo: [NSLocalizedDescriptionKey: ErrorMessage.genericError])
-//                    completion(.failure(error))
-//                    return
-//                }
+               
                 completion(.success(jsonResponse))
             } else {
                 // ADD custom error base on status code 404 / 401 /
