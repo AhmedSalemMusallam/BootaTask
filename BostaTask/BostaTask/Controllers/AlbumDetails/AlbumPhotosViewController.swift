@@ -121,7 +121,10 @@ class AlbumPhotosViewController: UIViewController {
             
             self.rowselected = indexPath.row
             // To go to the second view.
-            self.performSegue(withIdentifier: "ShowImagePreView", sender: self)
+            guard let PhotosCollectionViewData = try? self.PhotosCollectionViewData.value() else{ return }
+            let vc = ImagePreViewViewController()
+            vc.imageUrlString = PhotosCollectionViewData[indexPath.row].url
+            self.present(vc, animated: true)
             
             
            
@@ -131,13 +134,7 @@ class AlbumPhotosViewController: UIViewController {
         
     }
     
-    //Mark:- prepare Segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let PhotosCollectionViewData = try? PhotosCollectionViewData.value() else{ return }
-        guard let destinationVC = segue.destination as? ImagePreViewViewController else { return }
-        
-        destinationVC.imageUrlString = PhotosCollectionViewData[rowselected!].thumbnailUrl
-    }
+    
     
     
 }

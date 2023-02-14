@@ -109,17 +109,7 @@ class SearchResultViewController: UIViewController {
         
     }
     
-    //Mark:- prepare Segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-       
-            guard let PhotosCollectionViewData = try? PhotosCollectionViewData.value() else{ return }
-            guard let destinationVC = segue.destination as? ImagePreViewViewController else { return }
-            
-            destinationVC.imageUrlString = PhotosCollectionViewData[rowselected!].url
-     
-        
-    }
+    
 
 }
 
